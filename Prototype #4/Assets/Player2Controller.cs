@@ -8,7 +8,7 @@ public class Player2Controller : MonoBehaviour
     public float speed;
     public float jump;
     private Rigidbody2D rigidbody;
-    private bool alive = true;
+    public bool alive = true;
     public PlayerController player;
     GameObject Player1;
     private SpriteRenderer sprite;
@@ -36,6 +36,7 @@ public class Player2Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         frame++;
         frameOf60 = frame % 60;
         if (alive)
@@ -127,7 +128,7 @@ public class Player2Controller : MonoBehaviour
     }
 
 
-    void OnCollisionStay2D (Collision2D obj)
+    void OnCollisionStay2D(Collision2D obj)
     {
         if (obj.gameObject.tag == "Player 1")
         {

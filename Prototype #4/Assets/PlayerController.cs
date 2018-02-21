@@ -1,14 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
 
     public float speed;
     public float jump;
     private Rigidbody2D rigidbody;
-    private bool alive = true;
+    public bool alive = true;
     public Player2Controller player2;
     private SpriteRenderer spriteR;
     private bool flippedOnce = false;
@@ -22,25 +24,29 @@ public class PlayerController : MonoBehaviour {
     private int hitboxStartupFrames = 12;
     public bool hitboxActive = false;
     GameObject Player2;
-    //public Text wintext;
+    public Text wintext;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         rigidbody = GetComponent<Rigidbody2D>();
         player2 = FindObjectOfType<Player2Controller>();
         spriteR = GetComponent<SpriteRenderer>();
         sprites = Resources.LoadAll<Sprite>("cat_sprites");
         Player2 = GameObject.Find("Player 2");
-        //wintext.text = "";
+        wintext = GameObject.Find("Text").GetComponent<Text>();
+        wintext.text = "";
+        Debug.Log("text: " + wintext);
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         frame++;
         frameOf60 = frame % 60;
         if (alive)
         {
-            
+
             if (player2.transform.position.x > rigidbody.position.x && flippedOnce) //player2 on right side of player1
             {
                 spriteR.flipX = false;
@@ -52,7 +58,8 @@ public class PlayerController : MonoBehaviour {
             }
             if (Input.GetKeyDown(KeyCode.W) && !attacking) //jumping
             {
-                if (rigidbody.position.y <= -3.2) {
+                if (rigidbody.position.y <= -3.2)
+                {
                     rigidbody.velocity = new Vector2(rigidbody.velocity.x, jump);
                 }
             }
@@ -123,11 +130,22 @@ public class PlayerController : MonoBehaviour {
                 }
             }
         }
-        //else
-        //{
-            //wintext.text = "Player 2 Wins!";
-        //}
-	}
+        else
+        {
+            wintext.text = "Player 2 Wins!\nPress R to restart";
+            Debug.Log(wintext.text);
+            if (Input.GetKeyDown(KeyCode.R))
+                Application.LoadLevel(0);
+        }
+        if (!Player2.GetComponent<Player2Controller>().alive)
+        {
+            wintext.text = "Player 1 Wins!\nPress R to restart";
+            Debug.Log(wintext.text);
+            if (Input.GetKeyDown(KeyCode.R))
+                Application.LoadLevel(0);
+        }
+
+    }
 
 
     void OnCollisionStay2D(Collision2D obj)

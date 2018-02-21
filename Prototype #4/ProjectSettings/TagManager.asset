@@ -8,6 +8,7 @@ TagManager:
   - Cube 1
   - Cube 2
   - Player 1
+  - Text
   layers:
   - Default
   - TransparentFX
