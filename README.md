@@ -1,4 +1,4 @@
-#Prototypes for Professor Andy Nealen's Minimalist Game Design course:
+# Prototypes for Professor Andy Nealen's Minimalist Game Design course:
 
 * Prototype #1: side-scrolling endless runner to get familiar with Unity
 * Prototype #2: rhythm game built in Processing
